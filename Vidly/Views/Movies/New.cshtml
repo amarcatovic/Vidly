@@ -1,0 +1,39 @@
+﻿@model Vidly.ViewModels.NewMovieViewModels
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New Movie</h2>
+@Html.ValidationSummary(true, "Cannot add a new movie. Fix the mistakes in input form!")
+
+@using (Html.BeginForm("Save", "Movies"))
+{
+<div class="form-group">
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Name)
+</div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ReleaseDate)
+        @Html.TextBoxFor(m => m.ReleaseDate, "{0:dd MM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ReleaseDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenreId)
+        @Html.DropDownListFor(m => m.GenreId, new SelectList(Model.Genres, "Id", "genre"), "Select Genre..", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.GenreId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.InStock)
+        @Html.TextBoxFor(m => m.InStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.InStock)
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

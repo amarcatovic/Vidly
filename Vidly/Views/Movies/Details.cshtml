@@ -1,0 +1,22 @@
+﻿@model Vidly.Models.Movie
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    <li>Genre: @Model.Genre.genre</li>
+    <li>Release Date: @Model.ReleaseDate.ToLongDateString()</li>
+    <li>Date Added: @Model.DateAdded.ToLongDateString()</li>
+    @{ 
+        if(Model.InStock == 0)
+        {
+            <li>Currently not in stock</li>
+        }
+        else
+        {
+            <li>In stock: @Model.InStock</li>
+        }
+    }
+</ul>
+
